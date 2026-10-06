@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>OYEN AI — Kawan Belajar Saya</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+*{box-sizing:border-box} body{margin:0;background:#fff7ec;color:#2c251f}
+.app{min-height:100vh;max-width:520px;margin:auto;padding:18px 18px 30px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.brand{font-weight:900;font-size:30px}.parent{border:0;background:white;border-radius:16px;padding:10px 13px;font-size:20px;box-shadow:0 3px 14px #0001}
+.hero{text-align:center;margin:15px 0}.cat{font-size:104px;line-height:1}.hero h2{margin:4px}.hero p{margin:6px 0 14px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+button.mode,.mic,.choice,.back{border:0;border-radius:20px;padding:18px;font-weight:800;font-size:18px;box-shadow:0 5px 15px #0001}
+.learn{background:#dff1ff}.play{background:#dff8e7}.story{background:#eee5ff}.chat{background:#ffe2ef}
+.mic{width:100%;margin-top:16px;background:#ff842b;color:white;font-size:19px}
+.panel{display:none;background:white;border-radius:24px;padding:18px;margin-top:18px;box-shadow:0 5px 20px #0001}
+.panel.show{display:block}.choices{display:grid;gap:10px}.choice{text-align:left;background:#f6f6f6}.back{padding:10px 14px;background:#eee}
+.status{text-align:center;margin-top:12px;font-weight:700;min-height:28px}
+.small{text-align:center;font-size:13px;opacity:.7;margin-top:18px}
+</style>
+</head>
+<body>
+<main class="app">
+ <div class="top"><div class="brand">🐾 OYEN AI</div><button class="parent" onclick="openMode('parent')">⚙️</button></div>
+ <section class="hero">
+   <div class="cat">🐱</div>
+   <h2>Kawan Belajar Saya</h2>
+   <p>Hai! Saya Oyen. Jom belajar bersama!</p>
+ </section>
+ <div class="modes">
+  <button class="mode learn" onclick="openMode('learn')">📚<br>BELAJAR</button>
+  <button class="mode play" onclick="openMode('play')">🎮<br>MAIN</button>
+  <button class="mode story" onclick="openMode('story')">📖<br>CERITA</button>
+  <button class="mode chat" onclick="openMode('chat')">💬<br>BORAK</button>
+ </div>
+ <button class="mic" onclick="listen()">🎤 TEKAN & CAKAP DENGAN OYEN</button>
+ <div class="status" id="status">Pilih satu mod atau tekan mikrofon.</div>
+ <section class="panel" id="panel"></section>
+ <div class="small">Prototaip OYEN AI V2 • Belum disambungkan kepada AI berbayar</div>
+</main>
+<script>
+const data={
+ learn:['➕ Matematik','🇬🇧 English','🎨 Warna','🔢 Nombor','🐯 Haiwan'],
+ play:['🧩 Teka-teki','➕ Matematik','✅ Benar / Salah','🧠 Ingatan'],
+ story:['🐾 Haiwan','🗺️ Pengembaraan','🚀 Angkasa','🦖 Dinosaur'],
+ chat:['😊 Cerita hari ini','❓ Tanya Oyen','🌟 Kata-kata positif'],
+ parent:['👶 Umur anak','🌐 Bahasa','📚 Tahap pembelajaran','⏱️ Had masa harian']
+};
+const names={learn:'📚 BELAJAR',play:'🎮 MAIN',story:'📖 CERITA',chat:'💬 BORAK',parent:'⚙️ PARENT MODE'};
+function openMode(k){
+ const p=document.getElementById('panel'); p.className='panel show';
+ p.innerHTML='<button class="back" onclick="closePanel()">← Kembali</button><h2>'+names[k]+'</h2><div class="choices">'+
+ data[k].map(x=>'<button class="choice" onclick="choose(`'+x.replace(/`/g,'')+'`)">'+x+'</button>').join('')+'</div>';
+ document.getElementById('status').textContent='Oyen sedia!';
+}
+function closePanel(){document.getElementById('panel').className='panel'}
+function choose(x){document.getElementById('status').textContent='Oyen: Kamu pilih '+x+'. Bagus! 🐾'}
+function listen(){
+ const S=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!S){document.getElementById('status').textContent='Pelayar ini belum menyokong pengecaman suara.';return}
+ const r=new S(); r.lang='ms-MY'; r.interimResults=false;
+ document.getElementById('status').textContent='🎤 Oyen sedang mendengar...';
+ r.onresult=e=>{
+  const t=e.results[0][0].transcript;
+  document.getElementById('status').textContent='Kamu: “'+t+'”';
+  const u=new SpeechSynthesisUtterance('Oyen dengar kamu cakap, '+t+'. Bagus!');
+  u.lang='ms-MY'; speechSynthesis.speak(u);
+ };
+ r.onerror=()=>document.getElementById('status').textContent='Oyen tak dengar dengan jelas. Cuba lagi ya.';
+ r.start();
+}
+</script>
+</body></html>
