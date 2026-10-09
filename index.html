@@ -1,75 +1,38 @@
-<!doctype html>
-<html lang="ms">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>OYEN AI — Kawan Belajar Saya</title>
-<style>
-:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-*{box-sizing:border-box} body{margin:0;background:#fff7ec;color:#2c251f}
-.app{min-height:100vh;max-width:520px;margin:auto;padding:18px 18px 30px}
-.top{display:flex;justify-content:space-between;align-items:center}
-.brand{font-weight:900;font-size:30px}.parent{border:0;background:white;border-radius:16px;padding:10px 13px;font-size:20px;box-shadow:0 3px 14px #0001}
-.hero{text-align:center;margin:15px 0}.cat{font-size:104px;line-height:1}.hero h2{margin:4px}.hero p{margin:6px 0 14px}
-.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-button.mode,.mic,.choice,.back{border:0;border-radius:20px;padding:18px;font-weight:800;font-size:18px;box-shadow:0 5px 15px #0001}
-.learn{background:#dff1ff}.play{background:#dff8e7}.story{background:#eee5ff}.chat{background:#ffe2ef}
-.mic{width:100%;margin-top:16px;background:#ff842b;color:white;font-size:19px}
-.panel{display:none;background:white;border-radius:24px;padding:18px;margin-top:18px;box-shadow:0 5px 20px #0001}
-.panel.show{display:block}.choices{display:grid;gap:10px}.choice{text-align:left;background:#f6f6f6}.back{padding:10px 14px;background:#eee}
-.status{text-align:center;margin-top:12px;font-weight:700;min-height:28px}
-.small{text-align:center;font-size:13px;opacity:.7;margin-top:18px}
-</style>
-</head>
-<body>
-<main class="app">
- <div class="top"><div class="brand">🐾 OYEN AI</div><button class="parent" onclick="openMode('parent')">⚙️</button></div>
- <section class="hero">
-   <div class="cat">🐱</div>
-   <h2>Kawan Belajar Saya</h2>
-   <p>Hai! Saya Oyen. Jom belajar bersama!</p>
- </section>
- <div class="modes">
-  <button class="mode learn" onclick="openMode('learn')">📚<br>BELAJAR</button>
-  <button class="mode play" onclick="openMode('play')">🎮<br>MAIN</button>
-  <button class="mode story" onclick="openMode('story')">📖<br>CERITA</button>
-  <button class="mode chat" onclick="openMode('chat')">💬<br>BORAK</button>
- </div>
- <button class="mic" onclick="listen()">🎤 TEKAN & CAKAP DENGAN OYEN</button>
- <div class="status" id="status">Pilih satu mod atau tekan mikrofon.</div>
- <section class="panel" id="panel"></section>
- <div class="small">Prototaip OYEN AI V2 • Belum disambungkan kepada AI berbayar</div>
-</main>
-<script>
-const data={
- learn:['➕ Matematik','🇬🇧 English','🎨 Warna','🔢 Nombor','🐯 Haiwan'],
- play:['🧩 Teka-teki','➕ Matematik','✅ Benar / Salah','🧠 Ingatan'],
- story:['🐾 Haiwan','🗺️ Pengembaraan','🚀 Angkasa','🦖 Dinosaur'],
- chat:['😊 Cerita hari ini','❓ Tanya Oyen','🌟 Kata-kata positif'],
- parent:['👶 Umur anak','🌐 Bahasa','📚 Tahap pembelajaran','⏱️ Had masa harian']
-};
-const names={learn:'📚 BELAJAR',play:'🎮 MAIN',story:'📖 CERITA',chat:'💬 BORAK',parent:'⚙️ PARENT MODE'};
-function openMode(k){
- const p=document.getElementById('panel'); p.className='panel show';
- p.innerHTML='<button class="back" onclick="closePanel()">← Kembali</button><h2>'+names[k]+'</h2><div class="choices">'+
- data[k].map(x=>'<button class="choice" onclick="choose(`'+x.replace(/`/g,'')+'`)">'+x+'</button>').join('')+'</div>';
- document.getElementById('status').textContent='Oyen sedia!';
-}
-function closePanel(){document.getElementById('panel').className='panel'}
-function choose(x){document.getElementById('status').textContent='Oyen: Kamu pilih '+x+'. Bagus! 🐾'}
-function listen(){
- const S=window.SpeechRecognition||window.webkitSpeechRecognition;
- if(!S){document.getElementById('status').textContent='Pelayar ini belum menyokong pengecaman suara.';return}
- const r=new S(); r.lang='ms-MY'; r.interimResults=false;
- document.getElementById('status').textContent='🎤 Oyen sedang mendengar...';
- r.onresult=e=>{
-  const t=e.results[0][0].transcript;
-  document.getElementById('status').textContent='Kamu: “'+t+'”';
-  const u=new SpeechSynthesisUtterance('Oyen dengar kamu cakap, '+t+'. Bagus!');
-  u.lang='ms-MY'; speechSynthesis.speak(u);
- };
- r.onerror=()=>document.getElementById('status').textContent='Oyen tak dengar dengan jelas. Cuba lagi ya.';
- r.start();
-}
-</script>
-</body></html>
+<!doctype html><html lang="ms"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OYEN AI V4 — Kawan Belajar Saya</title><style>
+*{box-sizing:border-box}body{margin:0;background:#fff7eb;color:#37271e;font-family:system-ui,Arial,sans-serif}.app{max-width:520px;margin:auto;padding:17px 15px 35px}.top{display:flex;align-items:center;justify-content:space-between}.brand{font-size:27px;font-weight:900;color:#a7501c}.hero{text-align:center;margin:8px 0 15px}.cat{font-size:82px;line-height:1.2}.hero h2{margin:2px}.hero p{margin:4px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.tile{border:0;border-radius:18px;min-height:88px;padding:12px 4px;font-weight:850;font-size:13px;box-shadow:0 3px 9px #0001}.emoji{font-size:30px;display:block;margin-bottom:7px}.tile:nth-child(6n+1){background:#dff1ff}.tile:nth-child(6n+2){background:#dff8e7}.tile:nth-child(6n+3){background:#eee5ff}.tile:nth-child(6n+4){background:#ffe2ef}.tile:nth-child(6n+5){background:#ffebcf}.tile:nth-child(6n){background:#def7ee}button{font-family:inherit;cursor:pointer}.mic,.next,.back,.opt{border:0;border-radius:16px;padding:14px;font-weight:800;font-size:16px}.mic,.next{background:#ff852b;color:white}.mic{width:100%;margin-top:15px}.back{background:#eee;margin-bottom:9px}.panel{display:none;background:white;border-radius:22px;margin-top:14px;padding:17px;box-shadow:0 5px 16px #0001}.panel.show{display:block}.opt{width:100%;background:#f5f2ef;margin:5px 0;text-align:left}.next{margin-top:12px}.question{font-size:23px;font-weight:850;margin:15px 0}.status{text-align:center;font-weight:700;margin:12px 0}.feedback{margin:12px 0;font-weight:800}.small{text-align:center;font-size:12px;opacity:.75;margin-top:18px}input{width:100%;font-size:17px;padding:12px;border:2px solid #ddd;border-radius:13px}canvas{width:100%;height:auto;touch-action:none;border:2px solid #ddd;border-radius:15px;background:white}.swatch{width:40px;height:40px;border-radius:50%;border:2px solid #aaa;display:inline-block;margin:4px}.story{line-height:1.8;font-size:17px}.stars{font-weight:800;color:#aa5b00}
+</style></head><body><main class="app"><div class="top"><div class="brand">🐾 OYEN AI</div><button class="back" onclick="showParent()">⚙️</button></div><section class="hero"><div class="cat">🐱</div><h2>Kawan Belajar Saya</h2><p>Jom belajar dan bermain bersama Oyen!</p></section><div class="grid" id="menu"></div><button class="mic" onclick="listen()">🎤 TEKAN & CAKAP DENGAN OYEN</button><div id="status" class="status">Pilih aktiviti kegemaran kamu!</div><section id="panel" class="panel" aria-live="polite"></section><div class="small">OYEN AI V4 • Aktiviti tanpa API berbayar • BORAK ialah respons terbina dalam</div></main><script>
+'use strict';const $=id=>document.getElementById(id),p=$('panel'),s=$('status');let score=0,attempts=0,correct='',nextTask=()=>{},memoryTimer=null,voiceOn=false,storyIndex=0;
+const menus=[['📚','BELAJAR',learn],['🎮','MAIN',play],['📖','CERITA',storyMenu],['💬','BORAK',chat],['🎨','KREATIF',creative],['🏃','SENAMAN',exercise],['🪥','RUTIN',routine],['🔬','EKSPERIMEN',science],['🎵','NYANYI',music],['🚦','SELAMAT',safety],['❤️','AKHLAK',values],['🏆','CABARAN',challenge]];
+$('menu').innerHTML=menus.map((m,i)=>`<button class="tile" onclick="menus[${i}][2]()"><span class="emoji">${m[0]}</span>${m[1]}</button>`).join('');
+function speak(t){s.textContent=t;if(voiceOn&&'speechSynthesis'in window){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='ms-MY';u.rate=.9;speechSynthesis.speak(u)}}
+function open(title,body){clearTimeout(memoryTimer);p.className='panel show';p.innerHTML=`<button class="back" onclick="home()">← Kembali</button><h2>${title}</h2>${body}`;p.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function home(){clearTimeout(memoryTimer);p.className='panel';p.innerHTML='';s.textContent='Pilih aktiviti kegemaran kamu!'}
+function opts(arr,callback){let box=document.createElement('div');arr.forEach((x,i)=>{let b=document.createElement('button');b.className='opt';b.textContent=x;b.onclick=()=>callback(x,i);box.appendChild(b)});return box}
+function pick(title,arr,cb){open(title,'<div id="options"></div>');$('options').appendChild(opts(arr,cb))}
+function quiz(title,q,answers,answer,next){correct=answer;nextTask=next;open(title,`<div class="stars">⭐ Skor ${score} / ${attempts}</div><div class="question">${q}</div><div id="options"></div><div class="feedback" id="feedback"></div>`);$('options').appendChild(opts(answers,a=>{attempts++;let ok=a===correct;if(ok)score++;$('options').querySelectorAll('button').forEach(b=>b.disabled=true);$('feedback').textContent=ok?'🎉 Betul! Hebat!':'💡 Jawapan: '+correct;let b=document.createElement('button');b.className='next';b.textContent='Soalan seterusnya →';b.onclick=nextTask;$('feedback').appendChild(document.createElement('br'));$('feedback').appendChild(b);speak(ok?'Bagus! Jawapan betul.':'Cuba lagi pada soalan seterusnya.') }))}
+const rand=n=>Math.floor(Math.random()*n),shuffle=a=>a.sort(()=>Math.random()-.5);
+function learn(){pick('📚 BELAJAR',['➕ Matematik','🇬🇧 English','🎨 Warna','🔢 Nombor','🐯 Haiwan'],(_,i)=>[math,english,colors,numbers,animals][i]())}
+function math(){let a=rand(10)+1,b=rand(9)+1,z=a+b;quiz('➕ Matematik',`${a} + ${b} = ?`,shuffle([String(z),String(z+1),String(z+2)]),String(z),math)}
+const words=[['CAT','Kucing','Burung','Buku'],['BOOK','Buku','Kucing','Merah'],['APPLE','Epal','Pisang','Gajah'],['SUN','Matahari','Bulan','Air']];function english(){let w=words[rand(words.length)];quiz('🇬🇧 English',`Apakah maksud ${w[0]}?`,shuffle(w.slice(1)),w[1],english)}
+const colorData=[['🔴','Merah'],['🔵','Biru'],['🟢','Hijau'],['🟡','Kuning']];function colors(){let w=colorData[rand(4)];quiz('🎨 Warna','Apakah warna ini? '+w[0],shuffle(colorData.map(a=>a[1])),w[1],colors)}
+function numbers(){let n=rand(7)+1;quiz('🔢 Nombor','Kira bintang ini: <br>'+('⭐'.repeat(n)),shuffle([String(n),String(n+1),String(n+2)]),String(n),numbers)}
+const animalData=[['🐰','Arnab'],['🐯','Harimau'],['🐘','Gajah'],['🐱','Kucing']];function animals(){let w=animalData[rand(4)];quiz('🐯 Haiwan','Haiwan apakah ini? '+w[0],shuffle(animalData.map(a=>a[1])),w[1],animals)}
+function play(){pick('🎮 MAIN',['🧩 Teka-teki','⚡ Kira pantas','✅ Benar / Salah','🧠 Ingatan'],(_,i)=>[riddle,math,trueFalse,memory][i]())}
+const riddles=[['Saya ada belalai. Siapakah saya?','Gajah','Kucing','Arnab'],['Saya ada telinga panjang. Siapakah saya?','Arnab','Harimau','Burung']];function riddle(){let w=riddles[rand(2)];quiz('🧩 Teka-teki',w[0],shuffle(w.slice(1)),w[1],riddle)}
+const truths=[['Ikan hidup di air.','Benar'],['Kucing ada enam kaki.','Salah'],['Matahari memberi cahaya.','Benar'],['2 + 2 = 5.','Salah']];function trueFalse(){let w=truths[rand(4)];quiz('✅ Benar / Salah',w[0],['Benar','Salah'],w[1],trueFalse)}
+function memory(){open('🧠 Ingatan','<p>Ingat tiga gambar ini selama 4 saat:</p><div class="question">🍎 🐰 🚗</div>');memoryTimer=setTimeout(()=>quiz('🧠 Ingatan','Yang manakah TIDAK ditunjukkan tadi?',['🍎','🍌','🚗'],'🍌',memory),4000)}
+const stories=[['Oyen dan Burung Kecil','Oyen melihat seekor burung yang kehausan. Dia meletakkan semangkuk air di tempat selamat dan berundur supaya burung itu tidak takut.','Kebaikan tidak memerlukan balasan.'],['Bubu Hilang Pensel','Bubu kehilangan pensel. Oyen membantunya mencari tanpa menyalahkan sesiapa. Pensel itu ditemui di bawah meja.','Bantu kawan dengan sabar.'],['Miki Belajar Meminta Maaf','Miki tidak sengaja merosakkan binaan blok Ari. Miki meminta maaf dan membantu membinanya semula.','Mengaku kesilapan dan membaikinya ialah sikap baik.']];function storyMenu(){pick('📖 CERITA',stories.map(a=>a[0]),(_,i)=>showStory(i))}function showStory(i){let a=stories[i];open('📖 '+a[0],`<p class="story">${a[1]}</p><p><b>Pengajaran:</b> ${a[2]}</p><button class="next" onclick="storyMenu()">Pilih cerita lain</button>`);speak(a[2])}
+function chat(){open('💬 BORAK','<p>Taip: hai, saya gembira, saya sedih, atau teka-teki.</p><div id="reply" class="story">Oyen: Hai! Apa khabar?</div><input id="message" maxlength="100" placeholder="Taip mesej pendek"><button class="next" onclick="sendChat()">Hantar</button>')}
+function sendChat(){let t=$('message').value.trim().toLowerCase();if(!t)return;let r='Oyen belum tahu jawapan itu. Jom cuba aktiviti BELAJAR atau tanya ibu atau ayah.';if(/nama penuh|alamat|nombor telefon|sekolah mana|lokasi/.test(t))r='Jangan kongsi maklumat peribadi ya.';else if(/hai|hello|helo/.test(t))r='Hai! Oyen seronok berjumpa kamu!';else if(/sedih|takut|risau/.test(t))r='Oyen dengar. Cuba beritahu ibu, ayah atau orang dewasa yang kamu percaya.';else if(/gembira|seronok|suka/.test(t))r='Wah! Oyen pun gembira untuk kamu!';else if(/teka/.test(t))r='Teka-teki: Haiwan apa ada belalai?';$('reply').textContent='Oyen: '+r;speak(r);$('message').value=''}
+function creative(){open('🎨 KREATIF','<p>Guna jari untuk melukis. Pilih warna!</p><div id="palette"></div><canvas id="draw" width="340" height="310"></canvas><button class="next" onclick="clearDrawing()">Padam lukisan</button>');let c=$('draw'),ctx=c.getContext('2d'),col='#f44336',drawing=false;['#f44336','#2196f3','#4caf50','#ffca28','#222222'].forEach(v=>{let b=document.createElement('button');b.className='swatch';b.style.background=v;b.setAttribute('aria-label','Pilih warna');b.onclick=()=>col=v;$('palette').appendChild(b)});const pos=e=>{let r=c.getBoundingClientRect();return [(e.clientX-r.left)*c.width/r.width,(e.clientY-r.top)*c.height/r.height]};c.onpointerdown=e=>{drawing=true;c.setPointerCapture(e.pointerId);let [x,y]=pos(e);ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+.1,y+.1);ctx.strokeStyle=col;ctx.lineWidth=6;ctx.lineCap='round';ctx.stroke()};c.onpointermove=e=>{if(!drawing)return;let [x,y]=pos(e);ctx.lineTo(x,y);ctx.strokeStyle=col;ctx.lineWidth=6;ctx.stroke()};c.onpointerup=()=>drawing=false;c.onpointercancel=()=>drawing=false}
+function clearDrawing(){let c=$('draw');if(c)c.getContext('2d').clearRect(0,0,c.width,c.height)}
+const moves=[['🙆','Angkat kedua-dua tangan perlahan-lahan selama 5 saat.'],['🧍','Berdiri tegak dan tarik nafas perlahan tiga kali.'],['🙌','Gerakkan bahu perlahan ke depan dan ke belakang.']];let moveIndex=0;function exercise(){let a=moves[moveIndex++%moves.length];open('🏃 SENAMAN',`<div class="question">${a[0]}</div><p>${a[1]}</p><p>Berhenti jika sakit atau pening. Pastikan ruang selamat.</p><button class="next" onclick="exercise()">Gerakan seterusnya →</button>`)}
+const routines=[['🪥 Gosok gigi','Berus gigi perlahan-lahan selama dua minit dengan bantuan ibu atau ayah.'],['🧼 Basuh tangan','Basahkan tangan, gunakan sabun, gosok semua bahagian dan bilas.'],['🧸 Kemas mainan','Letakkan mainan di tempatnya selepas bermain.']];function routine(){pick('🪥 RUTIN HARIAN',routines.map(x=>x[0]),(_,i)=>{let a=routines[i];open(a[0],`<p class="story">${a[1]}</p><button class="next" onclick="routine()">Aktiviti lain</button>`)})}
+const experiments=[['🌱 Benih bercambah','Letakkan beberapa biji kacang hijau di atas kapas lembap dalam bekas. Periksa setiap hari bersama orang dewasa. Jangan makan benih percubaan.'],['💧 Terapung atau tenggelam','Dengan bantuan orang dewasa, cuba masukkan daun dan sudu ke dalam bekas air cetek. Lihat objek mana terapung.'],['🌈 Campur warna','Campurkan air berwarna merah dan kuning dalam bekas kecil. Apakah warna baharu yang terhasil?']];function science(){pick('🔬 EKSPERIMEN',experiments.map(a=>a[0]),(_,i)=>{let a=experiments[i];open(a[0],`<p class="story">${a[1]}</p><button class="next" onclick="science()">Eksperimen lain</button>`)})}
+const songs=[['🎵 Lagu Nombor','Satu, dua, tiga, mari kira bersama! Empat, lima, enam, Oyen gembira!'],['🎵 Lagu Warna','Merah dan biru, hijau dan kuning, warna-warni dunia sungguh cantik!'],['🎵 Lagu Kebersihan','Basuh tangan sebelum makan, bersih dan sihat jadi amalan!']];function music(){pick('🎵 NYANYI',songs.map(a=>a[0]),(_,i)=>{let a=songs[i];open(a[0],`<p class="story">${a[1]}</p><button class="next" onclick="sing(${i})">🔊 Dengar lirik</button><p>Suara bergantung pada sokongan telefon. Tiada muzik rakaman disertakan.</p>` )})}function sing(i){if(!('speechSynthesis'in window)){s.textContent='Suara tidak disokong pada pelayar ini.';return}let u=new SpeechSynthesisUtterance(songs[i][1]);u.lang='ms-MY';u.rate=.75;speechSynthesis.cancel();speechSynthesis.speak(u)}
+const safe=[['Sebelum melintas jalan, kita perlu...',['Lihat kiri dan kanan bersama orang dewasa','Terus berlari','Tutup mata'],'Lihat kiri dan kanan bersama orang dewasa'],['Jika nampak soket elektrik rosak...',['Jangan sentuh dan beritahu orang dewasa','Cuba baiki sendiri','Main dengannya'],'Jangan sentuh dan beritahu orang dewasa']];function safety(){let w=safe[rand(safe.length)];quiz('🚦 KESELAMATAN',w[0],w[1],w[2],safety)}
+const good=[['Kawan terjatuh. Apa patut dibuat?',['Tanya keadaannya dan panggil orang dewasa','Ketawakan dia','Biarkan sahaja'],'Tanya keadaannya dan panggil orang dewasa'],['Kita tidak sengaja rosakkan barang kawan.',['Minta maaf dan cuba bantu','Sembunyikan','Salahkan orang lain'],'Minta maaf dan cuba bantu']];function values(){let w=good[rand(good.length)];quiz('❤️ AKHLAK & EMOSI',w[0],w[1],w[2],values)}
+function challenge(){open('🏆 CABARAN HARIAN',`<p class="stars">⭐ Skor terkumpul sesi ini: ${score} / ${attempts}</p><p>Cabaran: jawab satu soalan Matematik, satu English dan satu Keselamatan.</p><button class="opt" onclick="math()">1. Matematik ➕</button><button class="opt" onclick="english()">2. English 🇬🇧</button><button class="opt" onclick="safety()">3. Keselamatan 🚦</button><p>Skor akan bermula semula apabila laman dimuat semula.</p>`)}
+function showParent(){open('⚙️ UNTUK IBU / AYAH','<p>OYEN V4 ialah aktiviti pendidikan tempatan, bukan chatbot AI sebenar. Ia tidak meminta nama, alamat, sekolah atau telefon anak.</p><label><input type="checkbox" id="voiceToggle" style="width:auto" onchange="voiceOn=this.checked"> Baca respons dengan suara (jika disokong)</label><p>Pengawasan orang dewasa diperlukan untuk aktiviti fizikal dan eksperimen.</p>');$('voiceToggle').checked=voiceOn}
+function listen(){let R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){s.textContent='Pelayar ini tidak menyokong pengecaman suara. Gunakan menu atau taip dalam BORAK.';return}let r=new R();r.lang='ms-MY';r.interimResults=false;s.textContent='🎤 Oyen sedang mendengar...';r.onresult=e=>{let t=e.results[0][0].transcript;chat();$('message').value=t;sendChat()};r.onerror=e=>s.textContent=e.error==='not-allowed'?'Benarkan mikrofon dalam pelayar.':'Oyen tak dengar jelas. Cuba lagi.';try{r.start()}catch(e){s.textContent='Mikrofon belum tersedia.'}}
+</script></body></html>
